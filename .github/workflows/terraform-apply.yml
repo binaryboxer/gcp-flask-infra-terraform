@@ -1,0 +1,41 @@
+name: Terraform Apply (GCP Infrastructure)
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write   # REQUIRED for OIDC
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud (OIDC)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
