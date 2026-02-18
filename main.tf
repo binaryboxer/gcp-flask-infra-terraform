@@ -86,3 +86,9 @@ resource "google_service_account_iam_member" "github_wif_binding" {
 
   member = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/${var.github_repo}"
 }
+
+resource "google_project_iam_member" "ci_token_creator_project" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:${google_service_account.ci_sa.email}"
+}
