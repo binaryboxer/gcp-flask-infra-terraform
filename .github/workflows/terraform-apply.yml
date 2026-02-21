@@ -1,4 +1,4 @@
-name: Terraform Apply (GCP Infrastructure)
+name: Terraform Apply (GCP Infra)
 
 on:
   push:
@@ -7,14 +7,14 @@ on:
 
 permissions:
   contents: read
-  id-token: write   # REQUIRED for OIDC
+  id-token: write
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Authenticate to Google Cloud (OIDC)
