@@ -11,11 +11,12 @@ resource "google_cloud_run_service" "iac_flask_service" {
 
   template {
     spec {
+      service_account_name = google_service_account.ci_sa.email
       containers {
         image = var.container_image
-
         ports {
           container_port = 8080
+
         }
       }
     }
@@ -32,6 +33,7 @@ resource "google_cloud_run_service_iam_member" "public_access" {
   location = var.region
   role     = "roles/run.invoker"
   member   = "allUsers"
+  
 }
 
 resource "google_service_account" "ci_sa" {
