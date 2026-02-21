@@ -38,4 +38,4 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        run: terraform apply -target=google_cloud_run_service.iac_flask_service -auto-approve
+        run: terraform apply -auto-approve

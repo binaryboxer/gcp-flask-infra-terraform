@@ -33,7 +33,7 @@ resource "google_cloud_run_service_iam_member" "public_access" {
   location = var.region
   role     = "roles/run.invoker"
   member   = "allUsers"
-  
+
 }
 
 resource "google_service_account" "ci_sa" {

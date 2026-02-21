@@ -12,7 +12,7 @@ variable "region" {
 variable "artifact_repo_name" {
   description = "Artifact Registry repository name"
   type        = string
-  default     = "iac-flask-repo"    
+  default     = "iac-flask-repo"
 }
 
 variable "cloud_run_service_name" {
